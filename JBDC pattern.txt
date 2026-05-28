@@ -1,0 +1,23 @@
+JDBC pattern:
+
+Connection 
+
+url=? # a string that tells Java which database to connect to and where it lives
+username=?
+password=?
+
+create a Statement
+
+
+execute a query
+
+
+loop through rows
+
+
+read columns
+
+
+close everything
+
+
