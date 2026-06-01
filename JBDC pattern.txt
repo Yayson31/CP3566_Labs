@@ -1,23 +1,56 @@
 JDBC pattern:
 
-Connection 
-
+#load the connection info
 url=? # a string that tells Java which database to connect to and where it lives
 username=?
 password=?
 
-create a Statement
+Establish a Connection 
+Connection conn = DriverManager.getConnection(url, user, pass);
+# actual connection between java and db
 
+
+
+create a Statement or PreparedStatement
+Statement st = conn.createStatement();
 
 execute a query
-
+ResultSet rs = st.executeQuery("SELECT * FROM student"); resultset is data retrieved from statement
 
 loop through rows
-
+rs.next() to move cursor to first row 
 
 read columns
+read the data from current row using 
+	rs.getInt("")
+	rs.getString("")
+	rs.getDouble("")
 
 
 close everything
 
+=========================================================================
+PreparedStatement = like statement but with parameters which would fill the placeholders ?
+# this helps with SQL injections
+
+select * from student where id = ?;
+
+ps.setInt(1, 5);
+
+ps - PreparedStatement
+setInt - setting value per type Int (there is setString, setDouble)
+1 - determines the first placeholder to fill 
+5 - is the value to use in place of the placeholder
+
+#example
+String sql = "SELECT name FROM student WHERE id = ?";
+try (PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setInt(1, 5);
+
+    try (ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+            System.out.println(rs.getString("name"));
+        }
+    }
+}
 
