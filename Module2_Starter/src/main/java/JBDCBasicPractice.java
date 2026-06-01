@@ -1,47 +1,36 @@
 import java.sql.*;
 
 public class JBDCBasicPractice {
+    // set up login info
+    private static final String url = "jdbc:h2:./data/studentdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE";
+    private static final String user = "sa";
+    private static final String pass = "secret";
 
-    // TODO: figure out the production rules 
+    public static void main(String[] args) throws Exception {
+        // UTF-8 encoding goes here first two lines
 
-    // load up login info
-    private static final String URL  = "jdbc:h2:./data/studentdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE";
-    private static final String USER = "sa";
-    private static final String PASSWORD = "secret";
+        // login timeout goes here before connection
 
-    // main
-    public static void main(String[] args) {
+        //try-w-re for getConnection
 
-        // use try-with-resources
-        try {
+            //try-w-re for statement
 
-            // establish connection with login info
-            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            // setQuery Timeout goes here
 
-            // create a statement
-            Statement stmt = conn.createStatement();
+                // try-w-re for ResultSet executeQuery d
 
-            // print header with formatted output
-            System.out.printf("%-4s %-14s %-6s %s%n", "ID", "Name", "GPA", "Program");
-            System.out.println("-".repeat(36));
+                    // print header
 
-            // return a resultset using executeQuery with select statement
-            try (ResultSet rs = stmt.executeQuery(
-                    "select id, name, gpa, program from student order by name")) {
+                    // loop through with rs.next() to next row and grab data from that row, is exists
 
-                // while loop using .next() to move to next row, if true, grab all data from current row
-                while (rs.next()) {
-                    System.out.printf("%-4d %-14s %-6.2f %s%n",
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getDouble("gpa"),
-                            rs.getString("program"));
-                }
-            }
+                    // print footer
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+                    // success use System.exit(0)
 
+    // catch SQLException
+        //System.exit(2)
+
+     // catch (ClassNotFoundException
+     // System.exit
     }
 }
